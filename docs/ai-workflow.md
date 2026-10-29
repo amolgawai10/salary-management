@@ -31,6 +31,21 @@ Verification performed:
 - Ran the generated Spring Boot test successfully with Gradle 9.8.2.
 - Reviewed staged diffs and created separate commits for the scaffold, requirements, and engineering decisions.
 
+### Phase 2: persistence foundation
+
+AI was used to:
+
+- Add a reproducible local PostgreSQL service and environment-based application configuration.
+- Check the Spring Boot 4.1 dependency catalog before selecting its split JPA/Flyway test starters and Testcontainers 2 modules.
+- Translate the reviewed data model into a Flyway migration, JPA entities, repositories, and PostgreSQL integration tests.
+- Review database constraints, query indexes, entity mappings, and repository method semantics.
+
+Verification performed:
+
+- Resolved dependencies and compiled production and test sources with Java 21.
+- Ran a clean Gradle test build and confirmed that PostgreSQL tests are explicitly skipped when Docker is unavailable rather than run against a substitute database.
+- Confirmed that no local PostgreSQL server was available. The migration and repository tests still need one execution with Docker before Phase 2 is considered fully runtime-verified.
+
 ## Log template for later phases
 
 For each material AI-assisted change, append:
