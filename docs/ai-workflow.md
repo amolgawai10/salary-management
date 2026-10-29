@@ -47,6 +47,21 @@ Verification performed:
 - Initially confirmed that no local PostgreSQL server was available, so database tests were transparently skipped.
 - After Docker became available, ran the full suite against PostgreSQL. Hibernate validation exposed fixed-length country and currency columns mapped as variable-length strings; explicit JDBC `CHAR` mappings resolved the mismatch, after which all migration, repository, constraint, and context tests passed.
 
+### Phase 3: deterministic data seeding
+
+AI was used to:
+
+- Design a dependency-free generator with fixed input data, random seed, dates, salary bands, and employee-code sequence.
+- Implement a profile-gated, transactional JDBC batch loader for employees and initial salary revisions.
+- Add fast generator tests and a real PostgreSQL integration test covering generated content and a repeated seed run.
+
+Verification performed:
+
+- Confirmed that two generator runs produce equal 10,000-record lists with unique employee codes and varied valid business data.
+- Confirmed through PostgreSQL that the seed produces exactly 10,000 employees and 10,000 initial salary revisions.
+- Reran the seed against the populated database and confirmed both counts remain unchanged.
+- Ran the complete clean suite: seven tests passed with no skips, failures, or errors.
+
 ## Log template for later phases
 
 For each material AI-assisted change, append:
