@@ -7,6 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "employee")
@@ -25,7 +27,8 @@ public class Employee {
     @Column(nullable = false, length = 100)
     private String department;
 
-    @Column(name = "work_country", nullable = false, length = 2)
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "work_country", nullable = false, length = 2, columnDefinition = "char(2)")
     private String workCountry;
 
     @Column(nullable = false)

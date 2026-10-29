@@ -44,7 +44,8 @@ Verification performed:
 
 - Resolved dependencies and compiled production and test sources with Java 21.
 - Ran a clean Gradle test build and confirmed that PostgreSQL tests are explicitly skipped when Docker is unavailable rather than run against a substitute database.
-- Confirmed that no local PostgreSQL server was available. The migration and repository tests still need one execution with Docker before Phase 2 is considered fully runtime-verified.
+- Initially confirmed that no local PostgreSQL server was available, so database tests were transparently skipped.
+- After Docker became available, ran the full suite against PostgreSQL. Hibernate validation exposed fixed-length country and currency columns mapped as variable-length strings; explicit JDBC `CHAR` mappings resolved the mismatch, after which all migration, repository, constraint, and context tests passed.
 
 ## Log template for later phases
 

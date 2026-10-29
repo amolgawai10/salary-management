@@ -15,6 +15,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "salary_revision")
@@ -31,7 +33,8 @@ public class SalaryRevision {
     @Column(name = "annual_base_amount", nullable = false, precision = 19, scale = 4)
     private BigDecimal annualBaseAmount;
 
-    @Column(name = "currency_code", nullable = false, length = 3)
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "currency_code", nullable = false, length = 3, columnDefinition = "char(3)")
     private String currencyCode;
 
     @Column(name = "effective_date", nullable = false)
